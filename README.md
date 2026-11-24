@@ -20,6 +20,22 @@ Intercity travellers must coordinate availability, pickup, luggage, pricing and 
 
 The project also includes a separate internal moderation interface, profile photos, push notifications, and a localized interface in Tunisian Arabic, French and English.
 
+## Product preview
+
+<p align="center">
+  <a href="screenshots/mobile/04-passenger-home.png"><img src="screenshots/mobile/04-passenger-home.png" alt="Passenger dashboard" width="220"></a>
+  <a href="screenshots/mobile/06-ride-search.png"><img src="screenshots/mobile/06-ride-search.png" alt="Ride search" width="220"></a>
+  <a href="screenshots/mobile/05-driver-home.png"><img src="screenshots/mobile/05-driver-home.png" alt="Driver dashboard" width="220"></a>
+</p>
+
+<p align="center"><b>Passenger dashboard · Ride discovery · Driver dashboard</b></p>
+
+### Trust and safety operations
+
+[![Cirius Admin moderation queue — synthetic data](screenshots/admin/01-moderation-queue.png)](screenshots/admin/01-moderation-queue.png)
+
+Mobile captures are anonymized; admin views contain fictional demonstration data. [Explore all 21 screenshots](screenshots/README.md).
+
 ## My contribution
 
 Founder and application developer: product definition, requirements analysis, user journeys, mobile application development, data modelling, business rule design and release planning. The showcase extends this work with an illustrative business intelligence case study and commercial feasibility analysis.
@@ -35,7 +51,7 @@ Founder and application developer: product definition, requirements analysis, us
 | [Analytics lab](analytics/README.md) | Synthetic data, SQL, KPIs, Power BI measures |
 | [Marketing measurement plan](marketing/README.md) | Acquisition, activation, retention |
 | [Development roadmap](roadmap/README.md) | Completed scope and remaining launch gates |
-| [Screenshots](screenshots/README.md) / [Demo](demo/README.md) | Capture plan; real media not yet published |
+| [Product gallery](screenshots/README.md) / [Demo](demo/README.md) | 21 mobile and admin screenshots; demo video planned |
 
 ## Technology
 
