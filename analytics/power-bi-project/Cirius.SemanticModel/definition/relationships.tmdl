@@ -1,0 +1,5 @@
+relationship 95e27ab5-4761-4e80-83c8-2c81df56e1ca
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Rides.departure_date
+	toColumn: LocalDateTable_fea7b0a7-7064-4190-828b-e216330024c7.Date
+

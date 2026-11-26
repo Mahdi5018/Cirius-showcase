@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "0000000000000000000b",
   "position": {
     "x": 285,
     "y": 470,
     "z": 1100,
-    "width": 550,
     "height": 405,
+    "width": 550,
     "tabOrder": 1100
   },
   "visual": {
@@ -70,7 +70,21 @@
         ]
       }
     },
-    "drillFilterOtherVisuals": true,
+    "objects": {
+      "labels": [
+        {
+          "properties": {
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
     "visualContainerObjects": {
       "title": [
         {
@@ -92,6 +106,39 @@
           }
         }
       ]
-    }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "37d44a896c8dc0d48a85",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Booking Stages"
+              }
+            },
+            "Property": "Stage"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "8a9ed4a090805d56687e",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Rides"
+              }
+            },
+            "Property": "Booking Funnel Value"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

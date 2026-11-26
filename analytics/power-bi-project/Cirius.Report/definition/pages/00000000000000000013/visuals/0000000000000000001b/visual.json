@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "0000000000000000001b",
   "position": {
     "x": 280,
     "y": 515,
     "z": 2700,
-    "width": 555,
     "height": 360,
+    "width": 555,
     "tabOrder": 2700
   },
   "visual": {
@@ -70,7 +70,6 @@
         ]
       }
     },
-    "drillFilterOtherVisuals": true,
     "visualContainerObjects": {
       "title": [
         {
@@ -92,6 +91,39 @@
           }
         }
       ]
-    }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "d279b52903a19d102eea",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fee Scenarios"
+              }
+            },
+            "Property": "Fee Rate"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "e700f15922ec14f66246",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Rides"
+              }
+            },
+            "Property": "Illustrative Fee TND"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

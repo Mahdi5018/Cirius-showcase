@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "00000000000000000007",
   "position": {
     "x": 1195,
     "y": 20,
     "z": 700,
-    "width": 220,
     "height": 100,
+    "width": 220,
     "tabOrder": 700
   },
   "visual": {
@@ -34,7 +34,28 @@
         }
       }
     },
-    "drillFilterOtherVisuals": true,
+    "objects": {
+      "labels": [
+        {
+          "properties": {
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            },
+            "labelPrecision": {
+              "expr": {
+                "Literal": {
+                  "Value": "0L"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
     "visualContainerObjects": {
       "title": [
         {
@@ -49,13 +70,32 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Gross Seat Value TND'"
+                  "Value": "'Gross Seat Value'"
                 }
               }
             }
           }
         }
       ]
-    }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "eda4505a76ad228ade1c",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Rides"
+              }
+            },
+            "Property": "Gross Seat Value TND"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

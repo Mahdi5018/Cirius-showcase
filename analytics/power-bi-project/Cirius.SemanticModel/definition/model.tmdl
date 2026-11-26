@@ -1,0 +1,21 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["Rides","Booking Stages","Fee Scenarios"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table Rides
+ref table 'Booking Stages'
+ref table 'Fee Scenarios'
+ref table DateTableTemplate_1cef6002-1f29-4a66-a9a2-0e86d6111962
+ref table LocalDateTable_fea7b0a7-7064-4190-828b-e216330024c7
+

@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "00000000000000000002",
   "position": {
     "x": 20,
     "y": 20,
     "z": 200,
-    "width": 220,
     "height": 100,
+    "width": 220,
     "tabOrder": 200
   },
   "visual": {
@@ -34,7 +34,21 @@
         }
       }
     },
-    "drillFilterOtherVisuals": true,
+    "objects": {
+      "categoryLabels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
     "visualContainerObjects": {
       "title": [
         {
@@ -49,13 +63,32 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Published Rides'"
+                  "Value": "'Total Published Rides'"
                 }
               }
             }
           }
         }
       ]
-    }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "3d5f0be404d909b7af04",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Rides"
+              }
+            },
+            "Property": "Published Rides"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

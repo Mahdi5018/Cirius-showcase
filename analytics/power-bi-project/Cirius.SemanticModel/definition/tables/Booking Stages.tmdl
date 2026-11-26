@@ -1,0 +1,21 @@
+table 'Booking Stages'
+	lineageTag: 406f9bf8-62a9-45e2-93e7-17f14f849311
+
+	column Stage
+		dataType: string
+		lineageTag: bb834f31-8e20-4202-bf70-df9b2ea390ad
+		summarizeBy: none
+		sourceColumn: Stage
+		sortByColumn: Order
+
+	column Order
+		dataType: int64
+		isHidden
+		lineageTag: ae8e84f9-7dc5-4ede-9d23-299e7884e189
+		summarizeBy: none
+		sourceColumn: Order
+
+	partition 'Booking Stages' = m
+		mode: import
+		source = #table(type table [Stage=text, Order=Int64.Type], {{"Requested seats",1},{"Accepted seats",2},{"Completed seats",3}})
+
