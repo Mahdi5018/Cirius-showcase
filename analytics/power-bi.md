@@ -41,3 +41,7 @@ Page 1 — Marketplace overview: KPI cards, monthly rides and completed seats, r
 Page 2 — Route performance: route matrix, cancellation rate, requested versus accepted seat scatter plot, date and route slicers.
 
 Place a permanent banner on every page: **SIMULATED DATA — NOT ACTUAL CIRIUS PERFORMANCE**. Reconcile results against the totals in the analytics README before publishing any dashboard.
+
+## Ready-to-open project source
+
+See [Power BI project](power-bi-project/README.md), the [extended DAX library](power-bi-measures.dax), and the [dashboard gallery](README.md#dashboard-previews). The project contains three report pages and an embedded CSV import. Desktop verification remains outstanding.
