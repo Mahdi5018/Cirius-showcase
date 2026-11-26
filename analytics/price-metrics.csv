@@ -1,0 +1,10 @@
+route,price_bin_start_tnd,rides,requested_seats,accepted_seats,acceptance_rate
+Sfax → Gabes,10,63,187,80,0.42780748663101603
+Sousse → Monastir,5,65,213,96,0.4507042253521127
+Sousse → Sfax,10,51,151,64,0.423841059602649
+Tunis → Bizerte,10,39,129,55,0.4263565891472868
+Tunis → Bizerte,5,24,75,48,0.64
+Tunis → Sfax,20,51,138,61,0.4420289855072464
+Tunis → Sfax,25,6,14,7,0.5
+Tunis → Sousse,10,27,97,44,0.4536082474226804
+Tunis → Sousse,15,34,107,44,0.411214953271028

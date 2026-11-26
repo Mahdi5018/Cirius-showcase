@@ -31,3 +31,31 @@ SELECT date_trunc('month',departure_date)::date AS month,
        round(100.0 * sum(accepted_seats)/nullif(sum(requested_seats),0),1) AS acceptance_pct,
        round(100.0 * count(*) FILTER (WHERE ride_status='cancelled')/nullif(count(*),0),1) AS cancellation_pct
 FROM synthetic_rides GROUP BY 1 ORDER BY 1;
+
+-- Route-level cancellation and seat funnel
+SELECT origin, destination, count(*) AS rides,
+       count(*) FILTER (WHERE ride_status='cancelled') AS cancelled_rides,
+       round(100.0 * count(*) FILTER (WHERE ride_status='cancelled') / nullif(count(*),0),1) AS cancellation_pct,
+       sum(offered_seats) AS offered, sum(requested_seats) AS requested,
+       sum(accepted_seats) AS accepted, sum(completed_seats) AS completed,
+       round(100.0 * sum(accepted_seats)/nullif(sum(requested_seats),0),1) AS acceptance_pct,
+       sum(completed_seats * seat_value_tnd) AS gross_value_tnd
+FROM synthetic_rides GROUP BY origin,destination ORDER BY cancellation_pct DESC;
+
+-- Within-route price bins with sample counts
+SELECT origin,destination, floor(seat_value_tnd/5)*5 AS price_bin_start,
+       count(*) AS rides, sum(requested_seats) AS requested, sum(accepted_seats) AS accepted,
+       round(100.0 * sum(accepted_seats)/nullif(sum(requested_seats),0),1) AS acceptance_pct
+FROM synthetic_rides GROUP BY 1,2,3 ORDER BY 1,2,3;
+
+-- Value waterfall and cancellation contribution
+SELECT ride_status, sum(accepted_seats) AS accepted, sum(completed_seats) AS completed,
+       sum(accepted_seats*seat_value_tnd) AS accepted_value_tnd,
+       sum(completed_seats*seat_value_tnd) AS completed_value_tnd,
+       sum((accepted_seats-completed_seats)*seat_value_tnd) AS unrealized_value_tnd
+FROM synthetic_rides GROUP BY ride_status;
+
+-- Hypothetical gross fee sensitivity (not recognized revenue)
+SELECT fee, sum(completed_seats*seat_value_tnd)*fee AS hypothetical_fee_tnd
+FROM synthetic_rides CROSS JOIN (VALUES (0.05::numeric),(0.10),(0.15)) AS rates(fee)
+GROUP BY fee ORDER BY fee;
