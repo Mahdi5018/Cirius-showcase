@@ -1,0 +1,97 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "0000000000000000001b",
+  "position": {
+    "x": 280,
+    "y": 515,
+    "z": 2700,
+    "width": 555,
+    "height": 360,
+    "tabOrder": 2700
+  },
+  "visual": {
+    "visualType": "clusteredColumnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fee Scenarios"
+                    }
+                  },
+                  "Property": "Fee Rate"
+                }
+              },
+              "queryRef": "Fee Scenarios.Fee Rate",
+              "nativeQueryRef": "Fee Rate",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Rides"
+                    }
+                  },
+                  "Property": "Illustrative Fee TND"
+                }
+              },
+              "queryRef": "Rides.Illustrative Fee TND",
+              "nativeQueryRef": "Illustrative Fee TND",
+              "active": true
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Fee Scenarios"
+                  }
+                },
+                "Property": "Fee Rate"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Illustrative fee sensitivity (TND)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}
