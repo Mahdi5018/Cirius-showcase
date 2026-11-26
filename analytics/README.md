@@ -18,6 +18,7 @@ This lab models a closed historical sample of 360 fictitious rides from Januaryâ
 | Published rides | 360 |
 | Completed ride records | 309 |
 | Cancelled ride records | 51 |
+| Ride cancellation rate | 14.2% |
 | Offered seats | 1101 |
 | Requested seats | 1111 |
 | Accepted seats | 499 |
@@ -25,7 +26,10 @@ This lab models a closed historical sample of 360 fictitious rides from Januaryâ
 | Completed seat utilization | 37.0% |
 | Accepted / requested seats | 44.9% |
 | Completed / accepted seats | 81.6% |
+| Completed / requested seats | 36.6% |
 | Gross completed seat value | 5,100 TND |
+| Accepted seat value | 6,234 TND |
+| Unrealized accepted seat value | 1,134 TND |
 
 ## Example analytical questions
 

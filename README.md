@@ -4,6 +4,8 @@
 
 Cirius is an independently developed intercity carpooling platform designed to connect drivers with spare seats and passengers seeking a more convenient way to travel between Tunisian cities. This portfolio documents product development, business analysis, marketing and analytics without distributing the commercial application source.
 
+**Explore the analytics:** [Power BI dashboards](analytics/README.md#power-bi-dashboard-screenshots) · [Business findings](analytics/insights.md) · [Financial model](business-analysis/financial-model.md) · [Editable report](analytics/power-bi-project/README.md)
+
 ## The problem
 
 Intercity travellers must coordinate availability, pickup, luggage, pricing and trust. Drivers also need a clear way to communicate capacity and manage booking requests. Cirius brings those decisions into a structured digital journey.
@@ -51,7 +53,7 @@ Founder and application developer: product definition, requirements analysis, us
 | [Analytics lab](analytics/README.md) | Dashboard previews, SQL, DAX, route analysis and recommendations |
 | [Marketing measurement plan](marketing/README.md) | Acquisition, activation, retention |
 | [Development roadmap](roadmap/README.md) | Completed scope and remaining launch gates |
-| [Product gallery](screenshots/README.md) / [Demo](demo/README.md) | 21 mobile and admin screenshots; demo video planned |
+| [Product gallery](screenshots/README.md) | 21 mobile and admin screenshots |
 
 ## Marketplace analytics
 
@@ -61,7 +63,9 @@ Founder and application developer: product definition, requirements analysis, us
 
 ## Technology
 
-React Native · Expo · TypeScript · PostgreSQL · Supabase · GitHub · Vitest · pgTAP
+**Analytics:** Power BI · DAX · SQL (PostgreSQL) · Power Query · CSV · Git/GitHub
+
+**Application:** React Native · Expo · TypeScript · Supabase · PostgreSQL · Vitest · pgTAP
 
 ## Status and evidence
 
