@@ -43,7 +43,7 @@ Price bins are lower-inclusive and upper-exclusive (e.g. 5 = [5,10) TND). Accept
 | Tunis → Sousse | 10 | 27 | 97 | 44 | 45.4% |
 | Tunis → Sousse | 15 | 34 | 107 | 44 | 41.1% |
 
-Tunis → Bizerte falls by 21.4 percentage points in the higher bin; Tunis → Sousse falls by 4.3 points. Tunis → Sfax increases by 5.8 points, but the upper bin contains only 14 requested seats from six rides. Three routes offer no within-route bin comparison. Pricing alone cannot explain acceptance; schedules, capacity, pickup arrangements and driver decisions remain hypotheses. No causal price elasticity is estimated.
+Tunis → Bizerte falls by 21.4 percentage points in the higher bin; Tunis → Sousse falls by 4.2 points (calculated before rounding the individual rates). Tunis → Sfax increases by 5.8 points, but the upper bin contains only 14 requested seats from six rides. Three routes offer no within-route bin comparison. Pricing alone cannot explain acceptance; schedules, capacity, pickup arrangements and driver decisions remain hypotheses. No causal price elasticity is estimated.
 
 ## Commercial value and fee scenarios
 

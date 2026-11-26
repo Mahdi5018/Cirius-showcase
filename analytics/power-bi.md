@@ -19,8 +19,8 @@ Import synthetic-rides.csv as a table named Rides. Set departure_date to Date, a
 
 ```dax
 Published Rides = COUNTROWS(Rides)
-Completed Rides = CALCULATE([Published Rides], Rides[ride_status] = "completed")
-Cancelled Rides = CALCULATE([Published Rides], Rides[ride_status] = "cancelled")
+Completed Rides = CALCULATE([Published Rides], KEEPFILTERS(Rides[ride_status] = "completed"))
+Cancelled Rides = CALCULATE([Published Rides], KEEPFILTERS(Rides[ride_status] = "cancelled"))
 Offered Seats = SUM(Rides[offered_seats])
 Requested Seats = SUM(Rides[requested_seats])
 Accepted Seats = SUM(Rides[accepted_seats])
@@ -36,12 +36,14 @@ Create each measure individually. Format rates as percentages. Create a route ca
 
 ## Report layout
 
-Page 1 — Marketplace overview: KPI cards, monthly rides and completed seats, route utilization bar chart, offered/requested/accepted/completed seat comparison.
+Page 1 — Marketplace overview: six KPI cards, daily published rides, passenger booking conversion funnel and monthly published versus completed ride volume.
 
-Page 2 — Route performance: route matrix, cancellation rate, requested versus accepted seat scatter plot, date and route slicers.
+Page 2 — Route performance: offered/requested/accepted/completed seat comparison, cancellation rate and seat utilization by route.
 
-Place a permanent banner on every page: **SIMULATED DATA — NOT ACTUAL CIRIUS PERFORMANCE**. Reconcile results against the totals in the analytics README before publishing any dashboard.
+Page 3 — Pricing and value: three value KPI cards, acceptance by 5 TND price bin, gross completed value by route, illustrative fee sensitivity and route-price evidence table.
+
+Each page contains route and month slicers. Reconcile results against the totals in the analytics README before publishing updated dashboards; retain the existing data disclosure when sharing report extracts.
 
 ## Ready-to-open project source
 
-See [Power BI project](power-bi-project/README.md), the [extended DAX library](power-bi-measures.dax), and the [dashboard gallery](README.md#dashboard-previews). The project contains three report pages and an embedded CSV import. All three report pages have been opened and visually checked in Power BI Desktop.
+See [Power BI project](power-bi-project/README.md), the [extended DAX library](power-bi-measures.dax), and the [dashboard gallery](README.md#power-bi-dashboard-screenshots). The project contains three report pages and an embedded CSV import. All three report pages have been opened and visually checked in Power BI Desktop.
