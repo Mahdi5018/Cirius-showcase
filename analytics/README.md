@@ -59,4 +59,4 @@ The data is at ride grain, not user or booking grain. It cannot support real cus
 - [DAX measure library](power-bi-measures.dax)
 - [Route metrics CSV](route-metrics.csv) and [price metrics CSV](price-metrics.csv)
 
-The PNG images above are captures of the refined Power BI Desktop report. The original SVG previews remain available in the dashboards directory.
+The PNG images above are captures of the refined Power BI Desktop report.
