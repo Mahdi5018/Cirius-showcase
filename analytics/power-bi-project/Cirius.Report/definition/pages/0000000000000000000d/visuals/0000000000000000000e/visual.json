@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "0000000000000000000e",
   "position": {
-    "x": 20,
-    "y": 20,
+    "x": 20.214345490376051,
+    "y": 20.214345490376051,
     "z": 1400,
-    "width": 250,
-    "height": 180,
+    "height": 245.6820451907243,
+    "width": 250.34689415004183,
     "tabOrder": 1400
   },
   "visual": {
@@ -34,7 +34,13 @@
         }
       }
     },
-    "drillFilterOtherVisuals": true,
+    "objects": {
+      "general": [
+        {
+          "properties": {}
+        }
+      ]
+    },
     "visualContainerObjects": {
       "title": [
         {
@@ -56,6 +62,25 @@
           }
         }
       ]
-    }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "4f251cca8466a0da36d8",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Rides"
+              }
+            },
+            "Property": "Route"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
   }
 }

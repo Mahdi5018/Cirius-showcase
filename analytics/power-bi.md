@@ -44,4 +44,4 @@ Place a permanent banner on every page: **SIMULATED DATA — NOT ACTUAL CIRIUS P
 
 ## Ready-to-open project source
 
-See [Power BI project](power-bi-project/README.md), the [extended DAX library](power-bi-measures.dax), and the [dashboard gallery](README.md#dashboard-previews). The project contains three report pages and an embedded CSV import. Desktop verification remains outstanding.
+See [Power BI project](power-bi-project/README.md), the [extended DAX library](power-bi-measures.dax), and the [dashboard gallery](README.md#dashboard-previews). The project contains three report pages and an embedded CSV import. All three report pages have been opened and visually checked in Power BI Desktop.

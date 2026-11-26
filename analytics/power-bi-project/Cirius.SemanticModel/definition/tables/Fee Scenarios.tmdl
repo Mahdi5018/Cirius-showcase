@@ -1,0 +1,14 @@
+table 'Fee Scenarios'
+	lineageTag: 9c2000ca-ccaa-46d1-ae64-8e4406fba23f
+
+	column 'Fee Rate'
+		dataType: double
+		formatString: 0%
+		lineageTag: 8ebdd529-f3f5-4cd3-b02e-2a9c1b5b0747
+		summarizeBy: none
+		sourceColumn: Fee Rate
+
+	partition 'Fee Scenarios' = m
+		mode: import
+		source = #table(type table [#"Fee Rate"=number], {{0.05},{0.10},{0.15}})
+

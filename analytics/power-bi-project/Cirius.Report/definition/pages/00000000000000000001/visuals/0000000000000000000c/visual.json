@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "0000000000000000000c",
   "position": {
     "x": 850,
     "y": 470,
     "z": 1200,
-    "width": 570,
     "height": 405,
+    "width": 570,
     "tabOrder": 1200
   },
   "visual": {
@@ -85,7 +85,6 @@
         ]
       }
     },
-    "drillFilterOtherVisuals": true,
     "visualContainerObjects": {
       "title": [
         {
@@ -107,6 +106,53 @@
           }
         }
       ]
-    }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "15871492852aad9878eb",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Rides"
+              }
+            },
+            "Property": "Month"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "f1d4d5b2f977c0fd570c",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Rides"
+              }
+            },
+            "Property": "Published Rides"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "4ff07144f57288ea9eb7",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Rides"
+              }
+            },
+            "Property": "Completed Rides"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

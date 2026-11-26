@@ -55,9 +55,9 @@ Founder and application developer: product definition, requirements analysis, us
 
 ## Marketplace analytics
 
-[![Marketplace overview](analytics/dashboards/01-marketplace-overview.svg)](analytics/README.md)
+[![Marketplace overview](analytics/dashboards/01-marketplace-overview.png)](analytics/README.md)
 
-[Route performance](analytics/dashboards/02-route-performance.svg) · [Pricing and value](analytics/dashboards/03-pricing-value.svg) · [Analytical findings](analytics/insights.md) · [Power BI project](analytics/power-bi-project/README.md)
+[Route performance](analytics/dashboards/02-route-performance.png) · [Pricing and value](analytics/dashboards/03-pricing-and-value.png) · [Analytical findings](analytics/insights.md) · [Power BI project](analytics/power-bi-project/README.md)
 
 ## Technology
 

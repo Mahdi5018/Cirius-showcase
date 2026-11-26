@@ -40,17 +40,17 @@ Which simulated routes have the highest utilization? How much demand remains una
 | Tunis → Sfax | 57 | 174 | 60 | 34.5% |
 | Sousse → Sfax | 51 | 159 | 47 | 29.6% |
 
-The data is at ride grain, not user or booking grain. It cannot support real customer segmentation, CAC or cohort retention. Gross seat value is not platform revenue. An editable Power BI project is provided in PBIP format; desktop rendering still needs verification.
+The data is at ride grain, not user or booking grain. It cannot support real customer segmentation, CAC or cohort retention. Gross seat value is not platform revenue. An editable Power BI project is provided in PBIP format; all three report pages have been opened and visually checked in Power BI Desktop.
 
-## Dashboard previews
+## Power BI dashboard screenshots
 
-[Marketplace overview](dashboards/01-marketplace-overview.svg) · [Route performance](dashboards/02-route-performance.svg) · [Pricing and value](dashboards/03-pricing-value.svg)
+[Marketplace overview](dashboards/01-marketplace-overview.png) · [Route performance](dashboards/02-route-performance.png) · [Pricing and value](dashboards/03-pricing-and-value.png)
 
-![Marketplace overview](dashboards/01-marketplace-overview.svg)
+![Marketplace overview](dashboards/01-marketplace-overview.png)
 
-![Route performance](dashboards/02-route-performance.svg)
+![Route performance](dashboards/02-route-performance.png)
 
-![Pricing and value](dashboards/03-pricing-value.svg)
+![Pricing and value](dashboards/03-pricing-and-value.png)
 
 ## Analysis and editable report
 
@@ -59,4 +59,4 @@ The data is at ride grain, not user or booking grain. It cannot support real cus
 - [DAX measure library](power-bi-measures.dax)
 - [Route metrics CSV](route-metrics.csv) and [price metrics CSV](price-metrics.csv)
 
-The SVG charts are independently calculated from the source data, not Power BI screenshots. The report project requires a final Desktop open/refresh check.
+The PNG images above are captures of the refined Power BI Desktop report.

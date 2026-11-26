@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "0000000000000000000f",
   "position": {
-    "x": 20,
-    "y": 215,
+    "x": 20.214345490376051,
+    "y": 287.66568582458223,
     "z": 1500,
-    "width": 250,
     "height": 135,
+    "width": 250,
     "tabOrder": 1500
   },
   "visual": {
@@ -34,7 +34,6 @@
         }
       }
     },
-    "drillFilterOtherVisuals": true,
     "visualContainerObjects": {
       "title": [
         {
@@ -56,6 +55,25 @@
           }
         }
       ]
-    }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "3acc074b6cef44fe9e96",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Rides"
+              }
+            },
+            "Property": "Month"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
   }
 }

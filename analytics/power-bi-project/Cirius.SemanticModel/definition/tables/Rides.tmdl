@@ -1,0 +1,209 @@
+table Rides
+	lineageTag: 76e65c0b-3e5a-4647-bf33-b4e5d77ac12b
+
+	measure 'Published Rides' = COUNTROWS(Rides)
+		formatString: #,##0
+		lineageTag: 1dc299c9-fe69-4208-8a8d-5e0d85ad9289
+
+	measure 'Completed Rides' = CALCULATE([Published Rides], KEEPFILTERS(Rides[ride_status] = "completed"))
+		formatString: #,##0
+		lineageTag: 347dd96b-e1cb-442d-9573-85f50a2887ee
+
+	measure 'Cancelled Rides' = CALCULATE([Published Rides], KEEPFILTERS(Rides[ride_status] = "cancelled"))
+		formatString: #,##0
+		lineageTag: 57a66564-a808-4aa2-8785-d7a484b42126
+
+	measure 'Offered Seats' = SUM(Rides[offered_seats])
+		formatString: #,##0
+		lineageTag: 961b4ddd-abed-42c1-837f-79473773a827
+
+	measure 'Requested Seats' = SUM(Rides[requested_seats])
+		formatString: #,##0
+		lineageTag: ea118d6e-bf6a-4f82-b22c-fe1db73c6362
+
+	measure 'Accepted Seats' = SUM(Rides[accepted_seats])
+		formatString: #,##0
+		lineageTag: 1cad6ec4-192d-4838-8df0-23ef394ef305
+
+	measure 'Completed Seats' = SUM(Rides[completed_seats])
+		formatString: #,##0
+		lineageTag: cb7e4f21-06c6-496a-bb83-086d368240be
+
+	measure 'Seat Utilization' = DIVIDE([Completed Seats], [Offered Seats])
+		formatString: 0.0%
+		lineageTag: d805d504-8d29-450f-80f5-9da2bcb8fda5
+
+	measure 'Acceptance Rate' = DIVIDE([Accepted Seats], [Requested Seats])
+		formatString: 0.0%
+		lineageTag: 3e26d979-e149-46b8-8a57-244b4581aca4
+
+	measure 'Seat Completion Rate' = DIVIDE([Completed Seats], [Accepted Seats])
+		formatString: 0.0%
+		lineageTag: 10ffc954-882a-4e8f-95c5-46fb61e0da8b
+
+	measure 'Overall Conversion' = DIVIDE([Completed Seats], [Requested Seats])
+		formatString: 0.0%
+		lineageTag: 6d0331cc-9e12-4d9b-8462-7413826861f2
+
+	measure 'Ride Cancellation Rate' = DIVIDE([Cancelled Rides], [Published Rides])
+		formatString: 0.0%
+		lineageTag: e767d95d-e2b7-4469-b934-e6e74157c573
+
+	measure 'Demand Supply Ratio' = DIVIDE([Requested Seats], [Offered Seats])
+		formatString: 0.0%
+		lineageTag: 92b10dad-0322-4085-a593-69b2f540d2d1
+
+	measure 'Gross Seat Value TND' = SUMX(Rides, Rides[completed_seats] * Rides[seat_value_tnd])
+		formatString: #,##0.00
+		lineageTag: 21ee0dcb-ec8b-4fad-9e87-62dbd28f4946
+
+	measure 'Accepted Seat Value TND' = SUMX(Rides, Rides[accepted_seats] * Rides[seat_value_tnd])
+		formatString: #,##0.00
+		lineageTag: 8cafb24a-a999-4ce2-8e53-91cc8aa9e9c4
+
+	measure 'Unrealized Accepted Value TND' = [Accepted Seat Value TND] - [Gross Seat Value TND]
+		formatString: #,##0.00
+		lineageTag: 0d6ac091-7d67-4b55-87be-00c9467125f3
+
+	measure 'Unaccepted Seats' = [Requested Seats] - [Accepted Seats]
+		formatString: #,##0
+		lineageTag: f223ee7e-b6b4-42d3-8c0f-78d170f0b928
+
+	measure 'Unfulfilled Accepted Seats' = [Accepted Seats] - [Completed Seats]
+		formatString: #,##0
+		lineageTag: ffd98ff7-d9dc-4804-bc0a-3c1404808972
+
+	measure 'Booking Funnel Value' = SWITCH(SELECTEDVALUE('Booking Stages'[Stage]), "Requested seats", [Requested Seats], "Accepted seats", [Accepted Seats], "Completed seats", [Completed Seats])
+		formatString: #,##0
+		lineageTag: d02f0743-8656-417a-9261-7419e1490ddb
+
+	measure 'Illustrative Fee TND' = [Gross Seat Value TND] * SELECTEDVALUE('Fee Scenarios'[Fee Rate])
+		formatString: #,##0.00
+		lineageTag: 25422d13-f0ff-451a-a73c-58c8e593a704
+
+	column ride_id
+		dataType: string
+		lineageTag: 3ac16e48-ba7e-4438-be2e-3fc8690206ae
+		summarizeBy: none
+		sourceColumn: ride_id
+
+	column departure_date
+		dataType: dateTime
+		formatString: yyyy-MM-dd
+		lineageTag: 48992c0c-ba63-495f-a6f0-19fde020d8d7
+		summarizeBy: none
+		sourceColumn: departure_date
+
+		variation Variation
+			isDefault
+			relationship: 95e27ab5-4761-4e80-83c8-2c81df56e1ca
+			defaultHierarchy: LocalDateTable_fea7b0a7-7064-4190-828b-e216330024c7.'Date Hierarchy'
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column origin
+		dataType: string
+		lineageTag: 27d19d4f-1c31-48f1-808a-5397735df6c0
+		summarizeBy: none
+		sourceColumn: origin
+
+	column destination
+		dataType: string
+		lineageTag: 8b218d52-a41d-4c98-9fea-e4ead4672414
+		summarizeBy: none
+		sourceColumn: destination
+
+	column offered_seats
+		dataType: int64
+		lineageTag: 256a14e9-b321-4f74-b9a4-e9841e6e1724
+		summarizeBy: sum
+		sourceColumn: offered_seats
+
+		annotation SummarizationSetBy = Automatic
+
+	column requested_seats
+		dataType: int64
+		lineageTag: a7fce8ec-0884-4602-9541-86bf41a67c93
+		summarizeBy: sum
+		sourceColumn: requested_seats
+
+		annotation SummarizationSetBy = Automatic
+
+	column accepted_seats
+		dataType: int64
+		lineageTag: 25742f5f-08e9-4686-a6e1-0d795401c151
+		summarizeBy: sum
+		sourceColumn: accepted_seats
+
+		annotation SummarizationSetBy = Automatic
+
+	column completed_seats
+		dataType: int64
+		lineageTag: ddd78a2b-768e-4639-b963-4eac6112e769
+		summarizeBy: sum
+		sourceColumn: completed_seats
+
+		annotation SummarizationSetBy = Automatic
+
+	column ride_status
+		dataType: string
+		lineageTag: c8a3ace8-d13b-4a8e-aa36-177a270d5e72
+		summarizeBy: none
+		sourceColumn: ride_status
+
+	column seat_value_tnd
+		dataType: double
+		formatString: 0.00
+		lineageTag: 28c1a6d0-f10d-4777-9c9e-ab705cd8e59c
+		summarizeBy: sum
+		sourceColumn: seat_value_tnd
+
+		annotation SummarizationSetBy = Automatic
+
+	column synthetic
+		dataType: boolean
+		lineageTag: 8e5f936c-6b83-4f3e-9723-4c2dc8a0ae0a
+		summarizeBy: none
+		sourceColumn: synthetic
+
+	column Route
+		dataType: string
+		lineageTag: 4fec8220-3083-4e15-bad5-68d578e8ab5a
+		summarizeBy: none
+		sourceColumn: Route
+
+	column Month
+		dataType: string
+		lineageTag: e52a39fb-b1aa-459c-bd5c-85532f29c1f2
+		summarizeBy: none
+		sourceColumn: Month
+
+	column 'Price Bin'
+		dataType: string
+		lineageTag: 70f31a8c-2ac5-417a-8991-d77bc4b04797
+		summarizeBy: none
+		sourceColumn: Price Bin
+		sortByColumn: 'Price Bin Start'
+
+	column 'Price Bin Start'
+		dataType: int64
+		lineageTag: 8d075127-4269-4ad3-88eb-65d5aabef535
+		summarizeBy: sum
+		sourceColumn: Price Bin Start
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Rides = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(Text.ToBinary("ride_id,departure_date,origin,destination,offered_seats,requested_seats,accepted_seats,completed_seats,ride_status,seat_value_tnd,synthetic#(lf)SYN0001,2026-01-22,Sfax,Gabes,3,0,0,0,completed,13,true#(lf)SYN0002,2026-03-02,Tunis,Bizerte,3,3,2,2,completed,8,true#(lf)SYN0003,2026-01-15,Sousse,Monastir,3,2,2,2,completed,7,true#(lf)SYN0004,2026-02-11,Tunis,Sousse,3,0,0,0,completed,13,true#(lf)SYN0005,2026-01-16,Tunis,Sfax,4,0,0,0,completed,21,true#(lf)SYN0006,2026-02-11,Sousse,Sfax,4,2,2,0,cancelled,10,true#(lf)SYN0007,2026-03-12,Sfax,Gabes,3,6,0,0,completed,12,true#(lf)SYN0008,2026-02-26,Tunis,Sfax,3,5,3,3,completed,22,true#(lf)SYN0009,2026-01-31,Tunis,Sousse,3,6,0,0,cancelled,13,true#(lf)SYN0010,2026-03-05,Tunis,Sfax,3,0,0,0,completed,25,true#(lf)SYN0011,2026-01-29,Tunis,Sfax,2,4,1,1,completed,21,true#(lf)SYN0012,2026-01-14,Tunis,Sfax,4,6,0,0,cancelled,21,true#(lf)SYN0013,2026-02-08,Sousse,Monastir,3,3,2,2,completed,8,true#(lf)SYN0014,2026-02-20,Sfax,Gabes,2,5,1,0,cancelled,13,true#(lf)SYN0015,2026-02-03,Sousse,Monastir,2,0,0,0,completed,5,true#(lf)SYN0016,2026-03-13,Sousse,Sfax,4,6,0,0,cancelled,14,true#(lf)SYN0017,2026-01-02,Sousse,Sfax,3,5,3,3,completed,12,true#(lf)SYN0018,2026-01-16,Sousse,Monastir,3,2,1,1,completed,5,true#(lf)SYN0019,2026-02-01,Tunis,Bizerte,4,4,4,4,completed,9,true#(lf)SYN0020,2026-01-14,Sousse,Sfax,3,1,1,1,completed,13,true#(lf)SYN0021,2026-03-28,Tunis,Sousse,3,6,3,3,completed,13,true#(lf)SYN0022,2026-03-11,Sfax,Gabes,3,0,0,0,completed,13,true#(lf)SYN0023,2026-01-03,Sousse,Sfax,2,6,0,0,completed,14,true#(lf)SYN0024,2026-02-22,Sfax,Gabes,3,1,1,1,completed,14,true#(lf)SYN0025,2026-03-04,Sousse,Monastir,3,6,2,2,completed,7,true#(lf)SYN0026,2026-01-09,Tunis,Sfax,4,1,1,1,completed,21,true#(lf)SYN0027,2026-01-11,Tunis,Sfax,2,3,2,2,completed,23,true#(lf)SYN0028,2026-03-21,Sousse,Monastir,4,3,0,0,completed,8,true#(lf)SYN0029,2026-02-21,Tunis,Sfax,2,3,2,2,completed,21,true#(lf)SYN0030,2026-03-02,Tunis,Sousse,4,3,3,2,completed,16,true#(lf)SYN0031,2026-02-11,Sousse,Monastir,2,1,1,1,completed,6,true#(lf)SYN0032,2026-02-02,Tunis,Bizerte,4,3,1,1,completed,8,true#(lf)SYN0033,2026-02-10,Tunis,Sousse,4,0,0,0,completed,16,true#(lf)SYN0034,2026-01-08,Sfax,Gabes,4,3,0,0,completed,14,true#(lf)SYN0035,2026-02-10,Sousse,Sfax,4,0,0,0,cancelled,14,true#(lf)SYN0036,2026-03-04,Tunis,Sfax,2,3,1,1,completed,22,true#(lf)SYN0037,2026-03-22,Sousse,Sfax,4,2,2,2,completed,12,true#(lf)SYN0038,2026-03-01,Tunis,Sfax,4,3,0,0,completed,24,true#(lf)SYN0039,2026-03-17,Tunis,Sousse,4,2,0,0,completed,17,true#(lf)SYN0040,2026-01-29,Tunis,Bizerte,2,1,1,1,completed,10,true#(lf)SYN0041,2026-02-11,Sfax,Gabes,2,3,2,0,cancelled,11,true#(lf)SYN0042,2026-02-21,Sousse,Monastir,4,4,3,2,completed,5,true#(lf)SYN0043,2026-03-15,Tunis,Bizerte,4,2,2,2,completed,9,true#(lf)SYN0044,2026-02-04,Sousse,Monastir,2,6,2,2,completed,5,true#(lf)SYN0045,2026-01-12,Sfax,Gabes,4,3,3,2,completed,10,true#(lf)SYN0046,2026-03-05,Tunis,Bizerte,4,0,0,0,completed,12,true#(lf)SYN0047,2026-03-07,Tunis,Sousse,3,4,3,3,completed,14,true#(lf)SYN0048,2026-02-16,Sfax,Gabes,2,2,1,1,completed,14,true#(lf)SYN0049,2026-02-02,Tunis,Sousse,2,2,2,1,completed,13,true#(lf)SYN0050,2026-02-07,Sfax,Gabes,4,4,4,3,completed,11,true#(lf)SYN0051,2026-01-14,Sousse,Monastir,3,1,1,1,completed,5,true#(lf)SYN0052,2026-01-22,Tunis,Bizerte,3,5,3,3,completed,9,true#(lf)SYN0053,2026-01-22,Tunis,Sfax,2,2,2,2,completed,21,true#(lf)SYN0054,2026-02-22,Tunis,Sousse,3,6,3,3,completed,15,true#(lf)SYN0055,2026-01-30,Tunis,Bizerte,3,0,0,0,completed,9,true#(lf)SYN0056,2026-02-03,Sfax,Gabes,2,2,0,0,completed,11,true#(lf)SYN0057,2026-01-21,Sfax,Gabes,2,2,0,0,completed,11,true#(lf)SYN0058,2026-02-09,Sousse,Sfax,4,6,1,1,completed,11,true#(lf)SYN0059,2026-02-09,Tunis,Sousse,3,3,3,0,cancelled,13,true#(lf)SYN0060,2026-01-12,Tunis,Sfax,2,2,2,2,completed,24,true#(lf)SYN0061,2026-02-05,Sousse,Monastir,4,2,2,2,completed,5,true#(lf)SYN0062,2026-03-04,Sfax,Gabes,3,4,3,3,completed,12,true#(lf)SYN0063,2026-03-13,Tunis,Sousse,3,4,3,3,completed,13,true#(lf)SYN0064,2026-02-21,Tunis,Sousse,4,1,0,0,completed,16,true#(lf)SYN0065,2026-03-13,Sousse,Monastir,4,5,3,3,completed,7,true#(lf)SYN0066,2026-03-19,Tunis,Bizerte,2,6,2,1,completed,12,true#(lf)SYN0067,2026-01-24,Sousse,Sfax,3,1,0,0,completed,10,true#(lf)SYN0068,2026-03-22,Tunis,Bizerte,4,2,0,0,completed,11,true#(lf)SYN0069,2026-01-18,Sousse,Monastir,4,5,3,2,completed,9,true#(lf)SYN0070,2026-01-05,Tunis,Sousse,3,0,0,0,completed,15,true#(lf)SYN0071,2026-02-21,Sfax,Gabes,2,2,2,2,completed,10,true#(lf)SYN0072,2026-02-24,Sousse,Monastir,3,0,0,0,completed,9,true#(lf)SYN0073,2026-01-15,Tunis,Bizerte,4,2,2,2,completed,8,true#(lf)SYN0074,2026-02-16,Tunis,Bizerte,3,0,0,0,completed,10,true#(lf)SYN0075,2026-01-27,Tunis,Sousse,3,1,1,1,completed,15,true#(lf)SYN0076,2026-01-20,Sousse,Sfax,2,5,2,1,completed,13,true#(lf)SYN0077,2026-03-08,Sfax,Gabes,3,1,1,0,cancelled,12,true#(lf)SYN0078,2026-01-10,Tunis,Sfax,3,0,0,0,completed,21,true#(lf)SYN0079,2026-01-01,Sousse,Sfax,3,4,1,0,completed,11,true#(lf)SYN0080,2026-02-01,Tunis,Bizerte,2,3,0,0,cancelled,11,true#(lf)SYN0081,2026-01-02,Tunis,Sfax,3,2,2,2,completed,25,true#(lf)SYN0082,2026-02-01,Sousse,Monastir,4,0,0,0,cancelled,9,true#(lf)SYN0083,2026-02-13,Sousse,Monastir,3,3,2,1,completed,6,true#(lf)SYN0084,2026-02-19,Sousse,Monastir,3,6,3,3,completed,9,true#(lf)SYN0085,2026-01-13,Tunis,Bizerte,4,3,0,0,cancelled,11,true#(lf)SYN0086,2026-01-20,Sousse,Monastir,2,3,1,1,completed,9,true#(lf)SYN0087,2026-02-14,Sousse,Monastir,3,0,0,0,completed,5,true#(lf)SYN0088,2026-01-01,Tunis,Sousse,2,2,2,2,completed,16,true#(lf)SYN0089,2026-03-29,Sfax,Gabes,2,5,2,2,completed,11,true#(lf)SYN0090,2026-01-13,Tunis,Bizerte,4,5,3,3,completed,10,true#(lf)SYN0091,2026-02-23,Sousse,Monastir,2,5,2,2,completed,9,true#(lf)SYN0092,2026-02-13,Sfax,Gabes,3,4,3,3,completed,11,true#(lf)SYN0093,2026-02-05,Sousse,Sfax,4,2,2,2,completed,12,true#(lf)SYN0094,2026-03-02,Sfax,Gabes,2,6,2,2,completed,10,true#(lf)SYN0095,2026-02-15,Sfax,Gabes,2,5,0,0,completed,10,true#(lf)SYN0096,2026-03-17,Sousse,Monastir,4,5,3,2,completed,8,true#(lf)SYN0097,2026-01-05,Sousse,Monastir,4,6,0,0,completed,6,true#(lf)SYN0098,2026-02-16,Sousse,Sfax,2,2,2,2,completed,12,true#(lf)SYN0099,2026-03-22,Sfax,Gabes,4,4,0,0,completed,12,true#(lf)SYN0100,2026-02-02,Tunis,Bizerte,4,6,4,4,completed,11,true#(lf)SYN0101,2026-02-13,Sfax,Gabes,2,5,2,1,completed,14,true#(lf)SYN0102,2026-01-05,Tunis,Bizerte,3,4,3,3,completed,10,true#(lf)SYN0103,2026-02-28,Tunis,Sfax,3,0,0,0,cancelled,21,true#(lf)SYN0104,2026-03-23,Sousse,Sfax,2,0,0,0,completed,13,true#(lf)SYN0105,2026-01-31,Tunis,Sfax,3,6,3,2,completed,23,true#(lf)SYN0106,2026-01-17,Sfax,Gabes,3,1,1,1,completed,14,true#(lf)SYN0107,2026-03-17,Tunis,Sousse,4,2,2,2,completed,17,true#(lf)SYN0108,2026-03-24,Sousse,Monastir,3,3,2,2,completed,8,true#(lf)SYN0109,2026-02-16,Tunis,Bizerte,4,4,4,4,completed,9,true#(lf)SYN0110,2026-02-07,Sousse,Monastir,2,4,2,2,completed,9,true#(lf)SYN0111,2026-02-05,Tunis,Sousse,4,0,0,0,completed,15,true#(lf)SYN0112,2026-02-26,Tunis,Bizerte,3,4,3,3,completed,9,true#(lf)SYN0113,2026-01-12,Sousse,Sfax,4,3,3,3,completed,10,true#(lf)SYN0114,2026-01-22,Tunis,Sousse,2,5,0,0,completed,14,true#(lf)SYN0115,2026-01-17,Tunis,Bizerte,4,3,3,3,completed,12,true#(lf)SYN0116,2026-03-06,Sfax,Gabes,3,1,1,1,completed,11,true#(lf)SYN0117,2026-03-13,Tunis,Sfax,3,2,2,0,cancelled,22,true#(lf)SYN0118,2026-01-19,Sousse,Monastir,3,4,3,3,completed,5,true#(lf)SYN0119,2026-01-08,Sousse,Monastir,2,6,0,0,completed,5,true#(lf)SYN0120,2026-03-23,Tunis,Bizerte,3,5,3,3,completed,10,true#(lf)SYN0121,2026-03-01,Tunis,Sfax,2,5,2,1,completed,23,true#(lf)SYN0122,2026-01-10,Tunis,Sousse,4,0,0,0,completed,13,true#(lf)SYN0123,2026-02-06,Tunis,Sousse,2,5,0,0,completed,15,true#(lf)SYN0124,2026-01-19,Tunis,Bizerte,3,5,0,0,completed,11,true#(lf)SYN0125,2026-03-23,Tunis,Sfax,4,2,2,2,completed,22,true#(lf)SYN0126,2026-01-28,Sousse,Monastir,4,2,2,0,cancelled,9,true#(lf)SYN0127,2026-01-06,Tunis,Bizerte,3,6,2,2,completed,9,true#(lf)SYN0128,2026-01-30,Sousse,Monastir,3,5,2,2,completed,7,true#(lf)SYN0129,2026-01-23,Sousse,Monastir,4,4,4,4,completed,7,true#(lf)SYN0130,2026-03-31,Sousse,Sfax,4,0,0,0,completed,14,true#(lf)SYN0131,2026-03-29,Tunis,Sfax,4,4,1,0,cancelled,23,true#(lf)SYN0132,2026-03-09,Sfax,Gabes,2,4,2,2,completed,13,true#(lf)SYN0133,2026-02-15,Tunis,Sfax,4,0,0,0,completed,21,true#(lf)SYN0134,2026-01-03,Tunis,Sousse,3,4,3,3,completed,17,true#(lf)SYN0135,2026-02-16,Sousse,Sfax,3,4,1,0,cancelled,12,true#(lf)SYN0136,2026-02-19,Sousse,Sfax,4,2,2,2,completed,11,true#(lf)SYN0137,2026-01-03,Tunis,Sousse,4,5,2,2,completed,16,true#(lf)SYN0138,2026-01-18,Sousse,Monastir,2,1,1,1,completed,5,true#(lf)SYN0139,2026-01-15,Sousse,Monastir,3,4,1,0,completed,9,true#(lf)SYN0140,2026-02-05,Tunis,Sousse,2,4,2,2,completed,13,true#(lf)SYN0141,2026-03-01,Sousse,Monastir,3,1,1,1,completed,7,true#(lf)SYN0142,2026-03-27,Sfax,Gabes,3,3,3,3,completed,13,true#(lf)SYN0143,2026-02-20,Tunis,Sousse,4,6,3,3,completed,14,true#(lf)SYN0144,2026-01-15,Tunis,Sousse,4,5,3,3,completed,14,true#(lf)SYN0145,2026-03-27,Tunis,Sfax,2,3,2,1,completed,21,true#(lf)SYN0146,2026-03-23,Sfax,Gabes,2,3,2,2,completed,13,true#(lf)SYN0147,2026-01-03,Tunis,Sfax,2,1,0,0,completed,25,true#(lf)SYN0148,2026-03-06,Sousse,Monastir,2,4,0,0,completed,6,true#(lf)SYN0149,2026-01-15,Tunis,Sousse,3,3,0,0,completed,16,true#(lf)SYN0150,2026-03-15,Tunis,Sousse,3,6,3,0,cancelled,17,true#(lf)SYN0151,2026-01-10,Sfax,Gabes,4,5,3,2,completed,13,true#(lf)SYN0152,2026-03-17,Tunis,Sousse,2,5,2,0,cancelled,17,true#(lf)SYN0153,2026-03-04,Sousse,Sfax,4,2,2,2,completed,11,true#(lf)SYN0154,2026-03-17,Tunis,Sfax,2,5,1,1,completed,21,true#(lf)SYN0155,2026-01-19,Sfax,Gabes,2,3,0,0,completed,12,true#(lf)SYN0156,2026-01-09,Tunis,Bizerte,3,0,0,0,cancelled,12,true#(lf)SYN0157,2026-01-12,Sfax,Gabes,4,6,1,0,cancelled,12,true#(lf)SYN0158,2026-02-09,Tunis,Sfax,4,4,4,4,completed,24,true#(lf)SYN0159,2026-03-03,Sousse,Sfax,4,5,0,0,completed,10,true#(lf)SYN0160,2026-03-12,Tunis,Sfax,2,5,0,0,cancelled,23,true#(lf)SYN0161,2026-03-20,Tunis,Sfax,4,6,4,4,completed,23,true#(lf)SYN0162,2026-01-24,Tunis,Sousse,3,1,0,0,completed,13,true#(lf)SYN0163,2026-01-08,Tunis,Bizerte,2,6,1,0,completed,10,true#(lf)SYN0164,2026-01-25,Tunis,Bizerte,4,6,2,2,completed,8,true#(lf)SYN0165,2026-03-21,Tunis,Sfax,4,0,0,0,completed,24,true#(lf)SYN0166,2026-03-20,Sousse,Sfax,3,2,2,2,completed,12,true#(lf)SYN0167,2026-01-20,Tunis,Bizerte,3,3,1,0,cancelled,8,true#(lf)SYN0168,2026-03-05,Tunis,Sousse,3,6,3,3,completed,13,true#(lf)SYN0169,2026-02-15,Tunis,Sousse,2,4,2,2,completed,17,true#(lf)SYN0170,2026-01-03,Tunis,Sousse,4,6,1,0,cancelled,16,true#(lf)SYN0171,2026-02-13,Tunis,Bizerte,2,3,0,0,completed,12,true#(lf)SYN0172,2026-01-14,Tunis,Sousse,2,0,0,0,completed,15,true#(lf)SYN0173,2026-03-20,Sfax,Gabes,3,5,3,3,completed,10,true#(lf)SYN0174,2026-03-28,Tunis,Sousse,2,0,0,0,completed,17,true#(lf)SYN0175,2026-03-21,Sousse,Sfax,3,3,3,3,completed,13,true#(lf)SYN0176,2026-03-04,Tunis,Sousse,3,2,2,2,completed,14,true#(lf)SYN0177,2026-01-30,Sousse,Sfax,2,0,0,0,cancelled,10,true#(lf)SYN0178,2026-02-18,Tunis,Sfax,3,4,2,2,completed,22,true#(lf)SYN0179,2026-03-10,Sfax,Gabes,2,1,1,1,completed,14,true#(lf)SYN0180,2026-03-14,Tunis,Sousse,4,4,2,2,completed,14,true#(lf)SYN0181,2026-01-01,Tunis,Sousse,4,4,0,0,completed,15,true#(lf)SYN0182,2026-02-20,Sfax,Gabes,2,0,0,0,completed,14,true#(lf)SYN0183,2026-03-31,Sfax,Gabes,4,0,0,0,cancelled,13,true#(lf)SYN0184,2026-02-06,Sousse,Sfax,4,3,3,0,cancelled,14,true#(lf)SYN0185,2026-03-24,Tunis,Sfax,3,3,0,0,completed,24,true#(lf)SYN0186,2026-03-03,Sousse,Sfax,2,2,1,1,completed,12,true#(lf)SYN0187,2026-01-16,Sfax,Gabes,2,0,0,0,completed,14,true#(lf)SYN0188,2026-01-25,Sousse,Sfax,4,0,0,0,completed,12,true#(lf)SYN0189,2026-03-29,Tunis,Sfax,4,1,1,0,completed,24,true#(lf)SYN0190,2026-03-23,Tunis,Sfax,2,5,2,2,completed,21,true#(lf)SYN0191,2026-01-25,Sousse,Monastir,2,3,2,2,completed,7,true#(lf)SYN0192,2026-02-15,Tunis,Sousse,3,0,0,0,completed,16,true#(lf)SYN0193,2026-01-31,Tunis,Sfax,4,0,0,0,cancelled,24,true#(lf)SYN0194,2026-03-06,Sfax,Gabes,3,5,3,2,completed,10,true#(lf)SYN0195,2026-02-14,Tunis,Sfax,2,1,1,1,completed,21,true#(lf)SYN0196,2026-02-21,Sousse,Monastir,4,6,1,1,completed,5,true#(lf)SYN0197,2026-01-28,Sousse,Monastir,3,4,0,0,completed,7,true#(lf)SYN0198,2026-03-26,Sousse,Monastir,2,3,1,1,completed,6,true#(lf)SYN0199,2026-02-24,Tunis,Sousse,4,3,3,3,completed,13,true#(lf)SYN0200,2026-01-08,Sousse,Sfax,4,3,3,0,cancelled,12,true#(lf)SYN0201,2026-01-03,Sousse,Sfax,3,0,0,0,completed,10,true#(lf)SYN0202,2026-01-28,Tunis,Sousse,2,4,2,0,cancelled,17,true#(lf)SYN0203,2026-03-08,Tunis,Sousse,3,4,1,1,completed,15,true#(lf)SYN0204,2026-01-12,Sousse,Monastir,4,3,3,3,completed,9,true#(lf)SYN0205,2026-02-15,Sousse,Sfax,3,5,2,2,completed,11,true#(lf)SYN0206,2026-03-29,Tunis,Sfax,4,4,3,3,completed,21,true#(lf)SYN0207,2026-02-28,Tunis,Sfax,3,3,2,2,completed,23,true#(lf)SYN0208,2026-01-31,Tunis,Sousse,3,4,3,3,completed,13,true#(lf)SYN0209,2026-02-15,Tunis,Bizerte,4,4,2,0,cancelled,11,true#(lf)SYN0210,2026-03-23,Tunis,Sfax,3,5,3,3,completed,23,true#(lf)SYN0211,2026-01-22,Sousse,Monastir,2,2,0,0,completed,9,true#(lf)SYN0212,2026-03-24,Tunis,Sfax,3,3,3,3,completed,24,true#(lf)SYN0213,2026-01-11,Tunis,Sfax,2,3,1,0,cancelled,22,true#(lf)SYN0214,2026-03-29,Tunis,Bizerte,2,1,1,0,cancelled,9,true#(lf)SYN0215,2026-01-23,Tunis,Sfax,2,2,0,0,cancelled,24,true#(lf)SYN0216,2026-03-07,Tunis,Sfax,3,0,0,0,completed,21,true#(lf)SYN0217,2026-01-10,Tunis,Sousse,2,6,2,2,completed,15,true#(lf)SYN0218,2026-01-05,Sousse,Sfax,4,5,0,0,completed,12,true#(lf)SYN0219,2026-02-15,Tunis,Sfax,4,4,0,0,completed,24,true#(lf)SYN0220,2026-03-29,Sousse,Sfax,2,0,0,0,completed,10,true#(lf)SYN0221,2026-03-15,Tunis,Sfax,4,4,2,2,completed,25,true#(lf)SYN0222,2026-03-21,Sousse,Sfax,2,6,2,0,cancelled,13,true#(lf)SYN0223,2026-01-04,Sousse,Monastir,3,5,2,1,completed,9,true#(lf)SYN0224,2026-01-10,Sousse,Monastir,2,6,2,2,completed,7,true#(lf)SYN0225,2026-01-25,Tunis,Sfax,2,0,0,0,completed,23,true#(lf)SYN0226,2026-01-26,Tunis,Bizerte,3,4,3,3,completed,9,true#(lf)SYN0227,2026-02-12,Sousse,Monastir,2,1,0,0,completed,5,true#(lf)SYN0228,2026-01-05,Sousse,Monastir,4,4,3,0,cancelled,5,true#(lf)SYN0229,2026-02-25,Tunis,Sfax,4,0,0,0,completed,24,true#(lf)SYN0230,2026-01-31,Tunis,Bizerte,2,4,2,2,completed,11,true#(lf)SYN0231,2026-02-18,Sousse,Monastir,3,0,0,0,completed,7,true#(lf)SYN0232,2026-02-17,Sousse,Sfax,4,0,0,0,completed,12,true#(lf)SYN0233,2026-01-06,Sfax,Gabes,3,4,3,3,completed,13,true#(lf)SYN0234,2026-03-26,Tunis,Bizerte,4,6,0,0,completed,10,true#(lf)SYN0235,2026-02-08,Sousse,Monastir,4,1,1,0,cancelled,8,true#(lf)SYN0236,2026-02-04,Sfax,Gabes,3,1,1,0,cancelled,10,true#(lf)SYN0237,2026-02-26,Sousse,Monastir,4,3,1,1,completed,6,true#(lf)SYN0238,2026-01-04,Tunis,Sousse,2,5,2,2,completed,15,true#(lf)SYN0239,2026-03-05,Sousse,Monastir,3,4,3,3,completed,7,true#(lf)SYN0240,2026-02-18,Tunis,Bizerte,4,6,4,4,completed,8,true#(lf)SYN0241,2026-02-13,Tunis,Bizerte,3,2,2,2,completed,12,true#(lf)SYN0242,2026-02-04,Sfax,Gabes,3,5,1,1,completed,12,true#(lf)SYN0243,2026-01-28,Sfax,Gabes,4,0,0,0,completed,12,true#(lf)SYN0244,2026-01-09,Sfax,Gabes,2,3,2,1,completed,12,true#(lf)SYN0245,2026-01-24,Sousse,Sfax,4,3,3,3,completed,11,true#(lf)SYN0246,2026-01-16,Tunis,Sousse,3,6,3,3,completed,15,true#(lf)SYN0247,2026-02-21,Sfax,Gabes,3,3,2,2,completed,11,true#(lf)SYN0248,2026-02-03,Sfax,Gabes,2,1,1,1,completed,10,true#(lf)SYN0249,2026-03-17,Tunis,Bizerte,4,4,0,0,completed,12,true#(lf)SYN0250,2026-03-31,Sousse,Sfax,4,1,1,1,completed,13,true#(lf)SYN0251,2026-02-06,Sousse,Monastir,3,6,3,3,completed,8,true#(lf)SYN0252,2026-01-22,Tunis,Bizerte,3,6,3,3,completed,10,true#(lf)SYN0253,2026-02-28,Sousse,Sfax,3,1,1,1,completed,13,true#(lf)SYN0254,2026-02-13,Tunis,Bizerte,3,1,1,1,completed,10,true#(lf)SYN0255,2026-01-27,Tunis,Sfax,4,3,3,3,completed,25,true#(lf)SYN0256,2026-02-26,Sfax,Gabes,4,6,3,3,completed,14,true#(lf)SYN0257,2026-03-07,Sfax,Gabes,3,2,2,2,completed,14,true#(lf)SYN0258,2026-02-04,Sousse,Monastir,3,3,0,0,completed,9,true#(lf)SYN0259,2026-01-27,Tunis,Sousse,4,6,0,0,cancelled,13,true#(lf)SYN0260,2026-01-01,Tunis,Bizerte,3,5,3,0,cancelled,8,true#(lf)SYN0261,2026-02-01,Sfax,Gabes,2,4,0,0,completed,10,true#(lf)SYN0262,2026-03-13,Sousse,Monastir,2,3,2,2,completed,5,true#(lf)SYN0263,2026-02-10,Tunis,Sousse,4,0,0,0,completed,17,true#(lf)SYN0264,2026-02-03,Tunis,Bizerte,3,1,1,1,completed,8,true#(lf)SYN0265,2026-01-02,Sousse,Monastir,3,4,1,1,completed,7,true#(lf)SYN0266,2026-01-18,Sfax,Gabes,4,4,0,0,completed,13,true#(lf)SYN0267,2026-03-10,Tunis,Sfax,3,5,1,1,completed,24,true#(lf)SYN0268,2026-01-23,Tunis,Bizerte,2,3,2,2,completed,11,true#(lf)SYN0269,2026-01-14,Tunis,Bizerte,4,2,2,2,completed,12,true#(lf)SYN0270,2026-01-18,Sousse,Sfax,3,6,2,2,completed,12,true#(lf)SYN0271,2026-01-24,Sfax,Gabes,3,1,0,0,completed,14,true#(lf)SYN0272,2026-01-19,Tunis,Bizerte,4,0,0,0,completed,9,true#(lf)SYN0273,2026-02-18,Sousse,Monastir,3,2,1,1,completed,9,true#(lf)SYN0274,2026-03-10,Tunis,Sousse,4,2,0,0,completed,16,true#(lf)SYN0275,2026-03-03,Tunis,Bizerte,3,6,2,2,completed,11,true#(lf)SYN0276,2026-02-10,Sousse,Sfax,2,6,0,0,completed,10,true#(lf)SYN0277,2026-02-07,Sousse,Monastir,3,1,1,1,completed,9,true#(lf)SYN0278,2026-03-14,Sousse,Sfax,3,6,2,2,completed,13,true#(lf)SYN0279,2026-01-25,Sousse,Sfax,3,4,1,1,completed,11,true#(lf)SYN0280,2026-01-11,Sousse,Monastir,3,4,1,1,completed,6,true#(lf)SYN0281,2026-02-12,Tunis,Bizerte,4,4,4,4,completed,12,true#(lf)SYN0282,2026-01-19,Tunis,Sousse,3,6,1,1,completed,14,true#(lf)SYN0283,2026-03-03,Sousse,Sfax,2,6,2,2,completed,12,true#(lf)SYN0284,2026-01-27,Tunis,Bizerte,4,4,4,0,cancelled,9,true#(lf)SYN0285,2026-02-18,Sfax,Gabes,4,3,3,3,completed,12,true#(lf)SYN0286,2026-01-05,Tunis,Sfax,4,6,2,2,completed,22,true#(lf)SYN0287,2026-01-16,Tunis,Bizerte,2,3,0,0,completed,11,true#(lf)SYN0288,2026-03-02,Tunis,Bizerte,2,5,2,2,completed,11,true#(lf)SYN0289,2026-03-17,Tunis,Sfax,2,5,0,0,completed,21,true#(lf)SYN0290,2026-02-18,Sousse,Sfax,2,5,1,1,completed,12,true#(lf)SYN0291,2026-01-27,Sfax,Gabes,4,5,2,1,completed,11,true#(lf)SYN0292,2026-02-10,Sfax,Gabes,3,0,0,0,completed,14,true#(lf)SYN0293,2026-02-04,Sousse,Sfax,3,6,3,0,cancelled,10,true#(lf)SYN0294,2026-01-22,Tunis,Sfax,4,3,3,3,completed,24,true#(lf)SYN0295,2026-01-12,Tunis,Sousse,2,2,2,1,completed,14,true#(lf)SYN0296,2026-02-01,Tunis,Sfax,3,1,1,1,completed,23,true#(lf)SYN0297,2026-03-10,Sousse,Monastir,3,1,1,1,completed,6,true#(lf)SYN0298,2026-02-18,Tunis,Sfax,4,0,0,0,completed,21,true#(lf)SYN0299,2026-02-21,Tunis,Bizerte,2,5,2,2,completed,8,true#(lf)SYN0300,2026-01-14,Sousse,Monastir,4,2,0,0,completed,6,true#(lf)SYN0301,2026-03-23,Sfax,Gabes,4,3,1,1,completed,13,true#(lf)SYN0302,2026-01-08,Tunis,Sousse,2,3,2,1,completed,16,true#(lf)SYN0303,2026-01-20,Tunis,Sousse,3,1,1,1,completed,13,true#(lf)SYN0304,2026-03-29,Tunis,Sousse,2,6,2,2,completed,13,true#(lf)SYN0305,2026-02-09,Sousse,Monastir,2,3,1,0,cancelled,9,true#(lf)SYN0306,2026-03-20,Sfax,Gabes,3,3,3,3,completed,11,true#(lf)SYN0307,2026-03-22,Tunis,Sfax,2,4,0,0,completed,25,true#(lf)SYN0308,2026-03-11,Sousse,Sfax,2,2,2,2,completed,13,true#(lf)SYN0309,2026-01-21,Tunis,Sousse,3,4,1,1,completed,16,true#(lf)SYN0310,2026-02-24,Sfax,Gabes,4,0,0,0,completed,14,true#(lf)SYN0311,2026-01-22,Sfax,Gabes,3,4,0,0,completed,13,true#(lf)SYN0312,2026-02-09,Tunis,Bizerte,2,4,0,0,completed,10,true#(lf)SYN0313,2026-03-26,Sfax,Gabes,4,5,0,0,completed,12,true#(lf)SYN0314,2026-01-08,Sfax,Gabes,4,6,3,3,completed,13,true#(lf)SYN0315,2026-02-02,Sousse,Sfax,3,4,2,2,completed,11,true#(lf)SYN0316,2026-03-03,Tunis,Bizerte,4,0,0,0,completed,9,true#(lf)SYN0317,2026-01-12,Sousse,Sfax,4,0,0,0,completed,10,true#(lf)SYN0318,2026-01-25,Tunis,Bizerte,4,4,3,2,completed,12,true#(lf)SYN0319,2026-01-06,Sousse,Sfax,3,3,1,1,completed,13,true#(lf)SYN0320,2026-01-28,Tunis,Sousse,4,5,3,3,completed,15,true#(lf)SYN0321,2026-03-02,Tunis,Bizerte,4,3,2,0,cancelled,8,true#(lf)SYN0322,2026-03-11,Sousse,Sfax,2,2,0,0,completed,11,true#(lf)SYN0323,2026-02-28,Tunis,Bizerte,4,4,2,2,completed,10,true#(lf)SYN0324,2026-03-13,Tunis,Bizerte,2,2,1,1,completed,11,true#(lf)SYN0325,2026-01-10,Sousse,Sfax,2,3,1,1,completed,11,true#(lf)SYN0326,2026-01-14,Sousse,Monastir,3,5,1,1,completed,6,true#(lf)SYN0327,2026-02-17,Sfax,Gabes,4,1,1,1,completed,14,true#(lf)SYN0328,2026-03-28,Tunis,Sfax,3,4,1,1,completed,23,true#(lf)SYN0329,2026-01-27,Tunis,Bizerte,3,3,3,3,completed,12,true#(lf)SYN0330,2026-01-26,Tunis,Sousse,4,0,0,0,completed,14,true#(lf)SYN0331,2026-01-14,Tunis,Sousse,3,4,3,0,cancelled,15,true#(lf)SYN0332,2026-01-28,Tunis,Bizerte,2,2,0,0,completed,9,true#(lf)SYN0333,2026-01-09,Tunis,Bizerte,2,6,2,0,cancelled,12,true#(lf)SYN0334,2026-03-26,Sfax,Gabes,3,4,1,1,completed,10,true#(lf)SYN0335,2026-01-18,Tunis,Sousse,4,6,1,0,completed,14,true#(lf)SYN0336,2026-01-13,Tunis,Bizerte,2,0,0,0,completed,10,true#(lf)SYN0337,2026-01-05,Tunis,Bizerte,4,4,2,2,completed,12,true#(lf)SYN0338,2026-01-15,Tunis,Sousse,2,2,2,2,completed,14,true#(lf)SYN0339,2026-02-22,Sfax,Gabes,3,4,2,2,completed,11,true#(lf)SYN0340,2026-02-20,Tunis,Sousse,2,5,1,1,completed,16,true#(lf)SYN0341,2026-01-07,Sousse,Monastir,3,5,2,1,completed,5,true#(lf)SYN0342,2026-03-02,Sousse,Monastir,2,2,0,0,completed,6,true#(lf)SYN0343,2026-03-07,Tunis,Bizerte,4,0,0,0,completed,10,true#(lf)SYN0344,2026-03-25,Sousse,Monastir,4,4,2,1,completed,6,true#(lf)SYN0345,2026-01-05,Sousse,Monastir,4,6,2,2,completed,5,true#(lf)SYN0346,2026-01-17,Sfax,Gabes,3,0,0,0,completed,11,true#(lf)SYN0347,2026-01-08,Tunis,Sfax,2,1,0,0,cancelled,22,true#(lf)SYN0348,2026-01-10,Tunis,Sousse,2,3,0,0,completed,13,true#(lf)SYN0349,2026-02-24,Tunis,Bizerte,4,0,0,0,cancelled,10,true#(lf)SYN0350,2026-01-29,Tunis,Sfax,4,0,0,0,cancelled,23,true#(lf)SYN0351,2026-03-07,Sfax,Gabes,2,5,0,0,completed,12,true#(lf)SYN0352,2026-03-15,Tunis,Sfax,4,1,0,0,completed,22,true#(lf)SYN0353,2026-02-21,Tunis,Bizerte,3,2,2,2,completed,8,true#(lf)SYN0354,2026-02-06,Sfax,Gabes,4,2,0,0,cancelled,10,true#(lf)SYN0355,2026-01-09,Sousse,Monastir,3,5,3,3,completed,6,true#(lf)SYN0356,2026-01-27,Sousse,Monastir,3,1,1,1,completed,5,true#(lf)SYN0357,2026-01-18,Sousse,Monastir,4,5,4,4,completed,5,true#(lf)SYN0358,2026-02-05,Sousse,Sfax,4,4,2,1,completed,14,true#(lf)SYN0359,2026-01-15,Sfax,Gabes,2,4,2,0,cancelled,14,true#(lf)SYN0360,2026-03-19,Sousse,Sfax,3,2,0,0,completed,11,true", TextEncoding.Utf8), [Delimiter=",", Columns=11, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    Typed = Table.TransformColumnTypes(Headers, {{"ride_id", type text}, {"departure_date", type date}, {"origin", type text}, {"destination", type text}, {"offered_seats", Int64.Type}, {"requested_seats", Int64.Type}, {"accepted_seats", Int64.Type}, {"completed_seats", Int64.Type}, {"ride_status", type text}, {"seat_value_tnd", type number}, {"synthetic", type logical}}, "en-US"),
+				    Routes = Table.AddColumn(Typed, "Route", each [origin] & " → " & [destination], type text),
+				    Months = Table.AddColumn(Routes, "Month", each Date.ToText([departure_date], "yyyy-MM"), type text),
+				    BinStart = Table.AddColumn(Months, "Price Bin Start", each Number.RoundDown([seat_value_tnd] / 5) * 5, Int64.Type),
+				    Bins = Table.AddColumn(BinStart, "Price Bin", each Text.From([Price Bin Start]) & "–<" & Text.From([Price Bin Start]+5), type text)
+				in
+				    Bins
+
