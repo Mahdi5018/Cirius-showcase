@@ -1,0 +1,59 @@
+// Format: #,##0
+Published Rides = COUNTROWS(Rides)
+
+// Format: #,##0
+Completed Rides = CALCULATE([Published Rides], KEEPFILTERS(Rides[ride_status] = "completed"))
+
+// Format: #,##0
+Cancelled Rides = CALCULATE([Published Rides], KEEPFILTERS(Rides[ride_status] = "cancelled"))
+
+// Format: #,##0
+Offered Seats = SUM(Rides[offered_seats])
+
+// Format: #,##0
+Requested Seats = SUM(Rides[requested_seats])
+
+// Format: #,##0
+Accepted Seats = SUM(Rides[accepted_seats])
+
+// Format: #,##0
+Completed Seats = SUM(Rides[completed_seats])
+
+// Format: 0.0%
+Seat Utilization = DIVIDE([Completed Seats], [Offered Seats])
+
+// Format: 0.0%
+Acceptance Rate = DIVIDE([Accepted Seats], [Requested Seats])
+
+// Format: 0.0%
+Seat Completion Rate = DIVIDE([Completed Seats], [Accepted Seats])
+
+// Format: 0.0%
+Overall Conversion = DIVIDE([Completed Seats], [Requested Seats])
+
+// Format: 0.0%
+Ride Cancellation Rate = DIVIDE([Cancelled Rides], [Published Rides])
+
+// Format: 0.0%
+Demand Supply Ratio = DIVIDE([Requested Seats], [Offered Seats])
+
+// Format: #,##0.00
+Gross Seat Value TND = SUMX(Rides, Rides[completed_seats] * Rides[seat_value_tnd])
+
+// Format: #,##0.00
+Accepted Seat Value TND = SUMX(Rides, Rides[accepted_seats] * Rides[seat_value_tnd])
+
+// Format: #,##0.00
+Unrealized Accepted Value TND = [Accepted Seat Value TND] - [Gross Seat Value TND]
+
+// Format: #,##0
+Unaccepted Seats = [Requested Seats] - [Accepted Seats]
+
+// Format: #,##0
+Unfulfilled Accepted Seats = [Accepted Seats] - [Completed Seats]
+
+// Format: #,##0
+Booking Funnel Value = SWITCH(SELECTEDVALUE('Booking Stages'[Stage]), "Requested seats", [Requested Seats], "Accepted seats", [Accepted Seats], "Completed seats", [Completed Seats])
+
+// Format: #,##0.00
+Illustrative Fee TND = [Gross Seat Value TND] * SELECTEDVALUE('Fee Scenarios'[Fee Rate])

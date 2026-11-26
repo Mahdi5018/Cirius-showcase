@@ -48,10 +48,16 @@ Founder and application developer: product definition, requirements analysis, us
 | [Technical architecture](architecture/README.md) | System design, data integrity, testing |
 | [Market and competitor analysis](business-analysis/market.md) | Research, segmentation, TAM/SAM/SOM |
 | [Financial scenario model](business-analysis/financial-model.md) | Unit economics, break-even, sensitivity |
-| [Analytics lab](analytics/README.md) | Synthetic data, SQL, KPIs, Power BI measures |
+| [Analytics lab](analytics/README.md) | Dashboard previews, SQL, DAX, route analysis and recommendations |
 | [Marketing measurement plan](marketing/README.md) | Acquisition, activation, retention |
 | [Development roadmap](roadmap/README.md) | Completed scope and remaining launch gates |
 | [Product gallery](screenshots/README.md) / [Demo](demo/README.md) | 21 mobile and admin screenshots; demo video planned |
+
+## Marketplace analytics
+
+[![Marketplace overview](analytics/dashboards/01-marketplace-overview.svg)](analytics/README.md)
+
+[Route performance](analytics/dashboards/02-route-performance.svg) · [Pricing and value](analytics/dashboards/03-pricing-value.svg) · [Analytical findings](analytics/insights.md) · [Power BI project](analytics/power-bi-project/README.md)
 
 ## Technology
 

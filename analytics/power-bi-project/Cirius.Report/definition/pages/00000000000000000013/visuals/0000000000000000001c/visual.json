@@ -1,0 +1,121 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "0000000000000000001c",
+  "position": {
+    "x": 850,
+    "y": 515,
+    "z": 2800,
+    "width": 570,
+    "height": 360,
+    "tabOrder": 2800
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Rides"
+                    }
+                  },
+                  "Property": "Route"
+                }
+              },
+              "queryRef": "Rides.Route",
+              "nativeQueryRef": "Route",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Rides"
+                    }
+                  },
+                  "Property": "Price Bin"
+                }
+              },
+              "queryRef": "Rides.Price Bin",
+              "nativeQueryRef": "Price Bin",
+              "active": true
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Rides"
+                    }
+                  },
+                  "Property": "Published Rides"
+                }
+              },
+              "queryRef": "Rides.Published Rides",
+              "nativeQueryRef": "Published Rides",
+              "active": true
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Rides"
+                    }
+                  },
+                  "Property": "Requested Seats"
+                }
+              },
+              "queryRef": "Rides.Requested Seats",
+              "nativeQueryRef": "Requested Seats",
+              "active": true
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Rides"
+                    }
+                  },
+                  "Property": "Acceptance Rate"
+                }
+              },
+              "queryRef": "Rides.Acceptance Rate",
+              "nativeQueryRef": "Acceptance Rate",
+              "active": true
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Price and route evidence'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

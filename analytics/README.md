@@ -40,4 +40,23 @@ Which simulated routes have the highest utilization? How much demand remains una
 | Tunis → Sfax | 57 | 174 | 60 | 34.5% |
 | Sousse → Sfax | 51 | 159 | 47 | 29.6% |
 
-The data is at ride grain, not user or booking grain. It cannot support real customer segmentation, CAC or cohort retention. Gross seat value is not platform revenue. No Power BI .pbix file is included yet; the data and DAX are provided to build one.
+The data is at ride grain, not user or booking grain. It cannot support real customer segmentation, CAC or cohort retention. Gross seat value is not platform revenue. An editable Power BI project is provided in PBIP format; desktop rendering still needs verification.
+
+## Dashboard previews
+
+[Marketplace overview](dashboards/01-marketplace-overview.svg) · [Route performance](dashboards/02-route-performance.svg) · [Pricing and value](dashboards/03-pricing-value.svg)
+
+![Marketplace overview](dashboards/01-marketplace-overview.svg)
+
+![Route performance](dashboards/02-route-performance.svg)
+
+![Pricing and value](dashboards/03-pricing-value.svg)
+
+## Analysis and editable report
+
+- [Business findings and recommendations](insights.md)
+- [Power BI project and opening instructions](power-bi-project/README.md)
+- [DAX measure library](power-bi-measures.dax)
+- [Route metrics CSV](route-metrics.csv) and [price metrics CSV](price-metrics.csv)
+
+The SVG charts are independently calculated from the source data, not Power BI screenshots. The report project requires a final Desktop open/refresh check.
